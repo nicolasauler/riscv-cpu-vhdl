@@ -1,0 +1,63 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std_unsigned.all;
+
+entity testbench is
+end entity testbench;
+
+architecture test of testbench is
+
+    component top
+        port(
+            clk, rst:       in          std_logic;
+            wd, dataAdr:    out         std_logic_vector(31 downto 0);
+            we:       out         std_logic
+        );
+    end component top;
+
+    signal s_wd, s_dataAdr:             std_logic_vector(31 downto 0);
+    signal s_clk, s_rst, s_we:    std_logic;
+
+begin
+
+-- instantiate device to be tested
+dut: top
+port map(
+    clk => s_clk,
+    rst => s_rst,
+    wd => s_wd,
+    dataAdr => s_dataAdr,
+    we => s_we
+);
+    
+-- generate clk with 10 ns period
+process
+begin
+    s_clk <= '1';
+    wait for 5 ns;
+    s_clk <= '0';
+    wait for 5 ns;
+end process;
+
+-- generate rst for first two clock cycles
+process
+begin 
+    s_rst <= '1';
+    wait for 22 ns;
+    s_rst <= '0';
+    wait;
+end process;
+
+-- check that 25 gets written to address 100 at end of program
+process(s_clk)
+begin 
+    if(s_clk'event and s_clk='0' and s_we='1') then
+        if(to_integer(s_dataAdr)=100 and to_integer(s_wd)=25) then
+            report "NO ERRORS: Simulation succeeded" severity note;
+        elsif(s_dataAdr /= 96) then
+            report "Simulation failed" severity failure;
+        end if;
+    end if;
+end process;
+
+end architecture test;

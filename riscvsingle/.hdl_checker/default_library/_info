@@ -1,0 +1,97 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/nic/202203-poli/oac/atv4a/copy_quartus
+Edatamem
+Z1 w1669561352
+Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 1
+Z5 d/home/nic/202203-poli/oac/atv4a/riscvsingle_quartus
+Z6 8/home/nic/202203-poli/oac/atv4a/riscvsingle_quartus/datamem.vhd
+Z7 F/home/nic/202203-poli/oac/atv4a/riscvsingle_quartus/datamem.vhd
+l0
+L6 1
+V4hIFM@<<C1NOJRLH3PU]G1
+!s100 jlh;KYdnGSHeKJ^o]mdCe3
+Z8 OV;C;2020.1;71
+32
+Z9 !s110 1669698529
+!i10b 1
+Z10 !s108 1669698529.000000
+Z11 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvsingle_quartus/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvsingle_quartus/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvsingle_quartus/datamem.vhd|
+!s107 /home/nic/202203-poli/oac/atv4a/riscvsingle_quartus/datamem.vhd|
+!i113 1
+Z12 o-quiet -work /home/nic/202203-poli/oac/atv4a/riscvsingle_quartus/.hdl_checker/default_library -check_synthesis -lint -rangecheck -pedanticerrors -explicit
+Z13 tExplicit 1 CvgOpt 0
+Abehavioural
+R2
+R3
+R4
+DEx4 work 7 datamem 0 22 4hIFM@<<C1NOJRLH3PU]G1
+!i122 1
+l16
+L14 23
+VgIA``=]jng926f]e`lmdC0
+!s100 =2LEon:Vb8^ZXz>Q0RJ]50
+R8
+32
+R9
+!i10b 1
+R10
+R11
+Z14 !s107 /home/nic/202203-poli/oac/atv4a/riscvsingle_quartus/datamem.vhd|
+!i113 1
+R12
+R13
+Edatapath
+Z15 w1669561552
+Z16 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+R3
+R4
+!i122 0
+R0
+Z17 8/home/nic/202203-poli/oac/atv4a/copy_quartus/datapath.vhd
+Z18 F/home/nic/202203-poli/oac/atv4a/copy_quartus/datapath.vhd
+l0
+L5 1
+VLb<AdhfC]F_UILhLff6JV1
+!s100 ii6[;@agjJbkLkB3aXSQA3
+R8
+32
+Z19 !s110 1669664775
+!i10b 1
+Z20 !s108 1669664775.000000
+Z21 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/copy_quartus/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/copy_quartus/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/copy_quartus/datapath.vhd|
+Z22 !s107 /home/nic/202203-poli/oac/atv4a/copy_quartus/datapath.vhd|
+!i113 1
+Z23 o-quiet -work /home/nic/202203-poli/oac/atv4a/copy_quartus/.hdl_checker/default_library -check_synthesis -lint -rangecheck -pedanticerrors -explicit
+R13
+Astruct
+R16
+R3
+R4
+DEx4 work 8 datapath 0 22 Lb<AdhfC]F_UILhLff6JV1
+!i122 0
+l92
+L24 172
+V`Zd<^dCzi47Cb]eh3Fi731
+!s100 WLS9zjDOg@UZd3Z=SN1BV0
+R8
+32
+R19
+!i10b 1
+R20
+R21
+R22
+!i113 1
+R23
+R13

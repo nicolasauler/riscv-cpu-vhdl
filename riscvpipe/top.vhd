@@ -1,0 +1,79 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity top is
+    port(
+        clk, rst:       in  std_logic;
+        wd, dataAdr:    out std_logic_vector(31 downto 0);
+        we:       out std_logic
+    );
+end entity top;
+
+architecture test of top is
+
+    component riscvsingle
+        port(
+            clk, rst:       in  std_logic;
+            pc:             out std_logic_vector(31 downto 0);
+            instr:          in  std_logic_vector(31 downto 0);
+            we:             out std_logic;
+            wd, alures:     out std_logic_vector(31 downto 0);
+            rd:             in  std_logic_vector(31 downto 0)
+        );
+    end component riscvsingle;
+
+    component instrmem
+        port(
+            a:              in  std_logic_vector(31 downto 0);
+            rd:             out std_logic_vector(31 downto 0)
+        );
+    end component instrmem;
+
+    component datamem
+        port(
+            clk, we:        in  std_logic;
+            a, wd:          in  std_logic_vector(31 downto 0);
+            rd:             out std_logic_vector(31 downto 0)
+        );
+    end component datamem;
+
+    signal s_pc, s_instr, s_rd: std_logic_vector(31 downto 0);
+    signal s_wd, s_dataAdr:     std_logic_vector(31 downto 0);
+    signal s_we:                std_logic;
+
+begin
+
+-- instantiate processor and memories
+rvsingle: riscvsingle
+port map(
+    clk => clk,
+    rst => rst,
+    pc => s_pc,
+    instr => s_instr,
+    we => we,
+    wd => wd,
+    alures => dataAdr,
+    rd => s_rd
+);
+
+imem: instrmem
+port map(
+    a => s_pc,
+    rd => s_instr
+);
+
+dmem: datamem
+port map(
+    clk => clk,
+    we => s_we,
+    a => s_dataAdr,
+    wd => s_wd,
+    rd => s_rd
+);
+
+we <= s_we;
+wd <= s_wd;
+dataAdr <= s_dataAdr;
+
+end architecture test;

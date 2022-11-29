@@ -1,0 +1,56 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std_unsigned.all;
+use ieee.std_logic_arith.all;
+
+entity alu is 
+    port(
+        a, b:       in                  std_logic_vector(31 downto 0);
+        alucontrol: in                  std_logic_vector(2  downto 0);
+        aluresult:  buffer              std_logic_vector(31 downto 0);
+        zero:       out                 std_logic
+        -- overflow: out   std_logic;
+    );
+end entity alu;
+
+architecture synth of alu is
+
+    signal soma, bout:     std_logic_vector(31 downto 0);
+
+begin
+
+bout <= (not b) when (alucontrol(2) = '1') 
+                else b;
+soma <= a + bout + alucontrol(2);
+
+-- alu function
+process(a, soma, bout, alucontrol)
+begin
+
+    case alucontrol(1 downto 0) is
+        when "00" => aluresult <= a and bout;
+        when "01" => aluresult <= a or bout;
+        when "10" => aluresult <= soma;
+        when "11" => aluresult <= ("0000000000000000000000000000000" & soma(31));
+        when others => aluresult <= X"00000000";
+    end case;
+
+end process;
+
+zero <= '1' when (aluresult = X"00000000") else '0';
+
+-- overflow circuit
+--process(all) begin
+--
+--    case alucontrol(2 downto 1) is
+--        when "01" => Overflow <= 
+--            (A(31) and B(31) and (not (soma(31)))) or
+--            ((not A(31)) and (not B(31)) and soma(31));
+--        when "11" => Overflow <= 
+--            ((not A(31)) and B(31) and soma(31)) or
+--            (A(31) and (not B(31)) and (not soma(31)));
+--        when others => Overflow <= '0';
+--    end case;
+--end process;
+
+end architecture synth;

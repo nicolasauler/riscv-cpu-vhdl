@@ -1,0 +1,49 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity regfile is
+    port(
+        clk:        in          std_logic;
+        regwrite:   in          std_logic;
+        rr1, rr2:   in          std_logic_vector(4 downto 0); -- read register 1 and 2
+        wr:         in          std_logic_vector(4 downto 0); -- write register
+        wd:         in          std_logic_vector(31 downto 0); -- read data
+        rd1, rd2:   out         std_logic_vector(31 downto 0) -- read data
+    );
+end entity regfile;
+
+architecture behavioural of regfile is
+
+    type ramtype is array (31 downto 0) of  std_logic_vector(31 downto 0);
+
+    signal mem: ramtype;
+
+begin
+    -- three ported register file
+    -- read two ports combinationally (RR1/RD1, RR2/RD2)
+    -- write third port on rising edge of clock (WR/WD/REGWRITE)
+    -- register 0 hardwired to 0
+    process(clk) 
+    begin
+        if rising_edge(clk) then
+            if regwrite = '1' then 
+                mem(to_integer(unsigned(wr))) <= wd;
+            end if;
+        end if;
+    end process;
+
+    process(rr1, rr2)
+    begin
+        if (to_integer(unsigned(rr1)) = 0) then 
+            rd1 <= X"00000000";
+        else 
+            rd1 <= mem(to_integer(unsigned(rr1)));
+        end if;
+        if (to_integer(unsigned(rr2)) = 0) then 
+            rd2 <= X"00000000";
+        else 
+            rd2 <= mem(to_integer(unsigned(rr2)));
+        end if;
+    end process;
+end architecture behavioural;

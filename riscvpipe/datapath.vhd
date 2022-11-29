@@ -1,0 +1,523 @@
+library ieee;
+use ieee.std_logic_1164.all;
+-- use ieee.std_logic_arith.all;
+
+entity datapath is
+    port(
+        clk, rst:   in  std_logic;
+
+        -- control data
+        memwrited:  in  std_logic;
+        memtoregd:  in  std_logic; -- regsrc
+        alucontrold:in  std_logic_vector(2 downto 0);
+        alusrcd:    in  std_logic;
+        pcsrc:      in  std_logic;
+        regwrited:  in  std_logic;
+        immsrcd:    in  std_logic_vector(1 downto 0); -- tell type of instr
+        zero:       out std_logic; -- control pcsrc: do branch or +4
+
+        instrd:     buffer  std_logic_vector(31 downto 0);
+
+        -- hazard
+        rs1e:       buffer  std_logic_vector(4 downto 0);
+        rs2e:       buffer  std_logic_vector(4 downto 0);
+        rde:        buffer  std_logic_vector(4 downto 0);
+        rdm:        buffer  std_logic_vector(4 downto 0);
+        rdw:        buffer  std_logic_vector(4 downto 0);
+        regwritem:  buffer  std_logic;
+        regwritew:  buffer  std_logic;
+        memtoregw:  buffer std_logic;
+
+        stallf:     in std_logic;
+        stalld:     in std_logic;
+        flushd:     in std_logic;
+        flushe:     in std_logic;
+        forwardae:  in std_logic_vector(1 downto 0);
+        forwardbe:  in std_logic_vector(1 downto 0)
+    );
+end entity datapath;
+
+architecture struct of datapath is
+
+    component flopr
+        generic(
+            width:                  integer := 32
+        );
+        port(
+            clk, rst:   in          std_logic;
+            en:         in          std_logic;
+            d:          in          std_logic_vector(width-1 downto 0);
+            q:          out         std_logic_vector(width-1 downto 0)
+        );
+    end component flopr;
+
+
+    component adder -- 32 bits
+        port(
+            a, b:       in          std_logic_vector(31 downto 0);
+            y:          out         std_logic_vector(31 downto 0)
+        );
+    end component adder;
+
+    component mux2
+        generic(
+            width:                  integer := 8
+        );
+        port(
+            d0, d1:     in          std_logic_vector(width-1 downto 0);
+            s:          in          std_logic;
+            y:          out         std_logic_vector(width-1 downto 0)
+        );
+    end component mux2;
+
+    component mux3 is
+        generic(
+            width:  integer := 8
+        );
+        port(
+            d0, d1, d2:     in          std_logic_vector(width-1 downto 0);
+            s:              in          std_logic_vector(1 downto 0);
+            y:              out         std_logic_vector(width-1 downto 0)
+        );
+    end component mux3;
+
+    component regfile
+        port(
+            clk:        in          std_logic;
+            regwrite:   in          std_logic;
+            rr1, rr2:   in          std_logic_vector(4 downto 0); -- read register 1 and 2
+            wr:         in          std_logic_vector(4 downto 0); -- write register
+            wd:         in          std_logic_vector(31 downto 0); -- read data
+            rd1, rd2:   out         std_logic_vector(31 downto 0) -- read data
+        );
+    end component regfile;
+
+    component immgen
+        port(
+            instr:      in          std_logic_vector(31 downto 7); -- parts of instructions with immediate fields
+            immsrc:     in          std_logic_vector(1 downto 0);
+            immext:     out         std_logic_vector(31 downto 0)
+        );
+    end component immgen;
+
+    component alu
+        port(
+            a,b:        in          std_logic_vector(31 downto 0);
+            alucontrol: in          std_logic_vector(2 downto 0);
+            alures:     out         std_logic_vector(31 downto 0);
+            zero:       out         std_logic
+        );
+    end component alu;
+
+    component instrmem
+        port(
+            a:              in  std_logic_vector(31 downto 0);
+            rd:             out std_logic_vector(31 downto 0)
+        );
+    end component instrmem;
+
+    component datamem
+        port(
+            clk, we:        in  std_logic;
+            a, wd:          in  std_logic_vector(31 downto 0);
+            rd:             out std_logic_vector(31 downto 0)
+        );
+    end component datamem;
+
+    component ifid
+        port(
+            clk, rst:       in              std_logic;
+            -- instructions
+            instrf:         in              std_logic_vector(31 downto 0);
+            instrd:         out             std_logic_vector(31 downto 0);
+            -- program counter
+            pcf:            in              std_logic_vector(31 downto 0);
+            pcd:            out             std_logic_vector(31 downto 0);
+            -- incremented pc
+            pcplus4f:       in              std_logic_vector(31 downto 0);
+            pcplus4d:       out             std_logic_vector(31 downto 0);
+            -- hazard unit 
+            stalld:         in              std_logic;
+            flushd:         in              std_logic
+        );
+    end component ifid;
+
+    component idex
+        port(
+            clk:            in              std_logic;
+            -- register content
+            rd1d:           in              std_logic_vector(31 downto 0);
+            rd1e:           out             std_logic_vector(31 downto 0);
+            rd2d:           in              std_logic_vector(31 downto 0);
+            rd2e:           out             std_logic_vector(31 downto 0);
+            -- register addresses
+            rs1d:           in              std_logic_vector(4 downto 0);
+            rs1e:           out             std_logic_vector(4 downto 0);
+            rs2d:           in              std_logic_vector(4 downto 0);
+            rs2e:           out             std_logic_vector(4 downto 0);
+            -- destination register address
+            rdd:            in              std_logic_vector(4 downto 0);
+            rde:            out             std_logic_vector(4 downto 0);
+            -- immediate field
+            immextd:        in              std_logic_vector(31 downto 0);
+            immexte:        out             std_logic_vector(31 downto 0);
+            -- program counter
+            pcd:            in              std_logic_vector(31 downto 0);
+            pce:            out             std_logic_vector(31 downto 0);
+            -- incremented pc
+            pcplus4d:       in              std_logic_vector(31 downto 0);
+            pcplus4e:       out             std_logic_vector(31 downto 0);
+            -- hazard unit
+            flushe:         in              std_logic;
+            -- control
+            memwrited:      in              std_logic;
+            memwritee:      out             std_logic;
+            memtoregd:      in              std_logic;
+            memtorege:      out             std_logic;
+            regwrited:      in              std_logic;
+            regwritee:      out             std_logic;
+            alucontrold:    in              std_logic_vector(2 downto 0);
+            alucontrole:    out             std_logic_vector(2 downto 0);
+            alusrcd:        in              std_logic;
+            alusrce:        out             std_logic
+        );
+    end component idex;
+
+    component exme
+        port(
+            clk:            in              std_logic;
+            -- result from alu
+            alurese:        in              std_logic_vector(31 downto 0);
+            aluresm:        out             std_logic_vector(31 downto 0);
+            -- writedata
+            wde:            in              std_logic_vector(31 downto 0);
+            wdm:            out             std_logic_vector(31 downto 0);
+            -- destination register address
+            rde:            in              std_logic_vector(4 downto 0);
+            rdm:            out             std_logic_vector(4 downto 0);
+            -- incremented pc
+            pcplus4e:       in              std_logic_vector(31 downto 0);
+            pcplus4m:       out             std_logic_vector(31 downto 0);
+            -- control data 
+            memwritee:      in              std_logic;
+            memwritem:      out             std_logic;
+            memtorege:      in              std_logic;
+            memtoregm:      out             std_logic;
+            regwritee:      in              std_logic;
+            regwritem:      out             std_logic
+        );
+    end component exme;
+
+    component mewb
+        port(
+            clk:            in              std_logic;
+            -- result from alu
+            aluresm:        in              std_logic_vector(31 downto 0);
+            aluresw:        out             std_logic_vector(31 downto 0);
+            -- read data from data memory
+            readdm:         in              std_logic_vector(31 downto 0);
+            readdw:         out             std_logic_vector(31 downto 0);
+            -- destination register address
+            rdm:            in              std_logic_vector(4 downto 0);
+            rdw:            out             std_logic_vector(4 downto 0);
+            -- incremented pc
+            pcplus4m:       in              std_logic_vector(31 downto 0);
+            pcplus4w:       out             std_logic_vector(31 downto 0);
+            -- control data 
+            memtoregm:      in              std_logic;
+            memtoregw:      out             std_logic;
+            regwritem:      in              std_logic;
+            regwritew:      out             std_logic
+        );
+    end component mewb;
+
+    signal s_pcnext:                std_logic_vector(31 downto 0);
+    signal s_aluinput2:             std_logic_vector(31 downto 0);
+    signal s_bypassae, s_bypassbe:  std_logic_vector(31 downto 0);
+
+    ------------------------------------------
+    ---------------fetch stage----------------
+    ------------------------------------------
+    signal s_pcplus4f:              std_logic_vector(31 downto 0);
+    signal s_pcf:                   std_logic_vector(31 downto 0);
+    signal s_instrf:                std_logic_vector(31 downto 0);
+    signal not_stallf:              std_logic;
+
+    ------------------------------------------
+    ---------------decode stage---------------
+    ------------------------------------------
+    signal s_rd1_regd:              std_logic_vector(31 downto 0);
+    signal s_wdd:                   std_logic_vector(31 downto 0);
+    signal s_immextd:               std_logic_vector(31 downto 0); -- imediate address from beq
+    signal s_pcd:                   std_logic_vector(31 downto 0);
+    signal s_pcplus4d:              std_logic_vector(31 downto 0);
+    signal not_stalld:              std_logic;
+
+    ------------------------------------------
+    ---------------execute stage--------------
+    ------------------------------------------
+    signal s_rd1_rege, s_wde:       std_logic_vector(31 downto 0);
+    signal s_alurese:               std_logic_vector(31 downto 0);
+    signal s_immexte:               std_logic_vector(31 downto 0); -- imediate address from beq
+    signal s_pce:                   std_logic_vector(31 downto 0);
+    signal s_pcplus4e, s_pctargete: std_logic_vector(31 downto 0);
+    signal s_regdeste:              std_logic_vector(4 downto 0);
+    signal s_alusrce, s_regwritee:  std_logic;
+    signal s_alucontrole:           std_logic_vector(2 downto 0);
+    signal s_memtorege:             std_logic;
+    signal s_memwritee:             std_logic;
+
+    ------------------------------------------
+    ---------------memory stage---------------
+    ------------------------------------------
+    signal s_wdm:                   std_logic_vector(31 downto 0);
+    signal s_aluresm, s_readdatam:  std_logic_vector(31 downto 0);
+    signal s_regdestm:              std_logic_vector(4 downto 0);
+    signal s_pcplus4m:              std_logic_vector(31 downto 0);
+    signal s_regwritem, s_memtoregm:std_logic;
+    signal s_memwritem:             std_logic;
+
+
+    ------------------------------------------
+    ---------------writeback stage------------
+    ------------------------------------------
+    signal s_resultw:               std_logic_vector(31 downto 0);
+--    signal s_regwritew, s_memtoregw:std_logic;
+    signal s_regwritew:             std_logic;
+    signal s_aluresw, s_readdataw:  std_logic_vector(31 downto 0);
+    signal s_regdestw:              std_logic_vector(4 downto 0);
+    signal s_pcplus4w:              std_logic_vector(31 downto 0);
+
+begin
+
+    ------------------------------------------
+    ---------------next PC logic--------------
+    ------------------------------------------
+    not_stallf <= stallf;
+
+    pcreg:  flopr
+    generic map(
+        width => 32
+    )
+    port map(
+        clk => clk,
+        rst => rst,
+        en  => not_stallf,
+        d   => s_pcnext,
+        q   => s_pcf
+    );
+
+    pcadd4: adder
+    port map(
+        a => s_pcf,
+        b => X"00000004",
+        y => s_pcplus4f
+    );
+
+    pcaddbranch: adder
+    port map(
+        a => s_pce,
+        b => s_immexte,
+        y => s_pctargete
+    );
+
+    pcmux:  mux2
+    generic map(
+        width => 32
+    )
+    port map(
+        d0 => s_pcplus4f,
+        d1 => s_pctargete,
+        s  => pcsrc,
+        y  => s_pcnext
+    );
+
+    ------------------------------------------
+    ---------------regfile logic--------------
+    ------------------------------------------
+    imm: immgen
+    port map(
+        instr => instrd(31 downto 7),
+        immsrc => immsrcd,
+        immext => s_immextd
+    );
+
+    rf: regfile
+    port map(
+        clk => clk,
+        regwrite => s_regwritew,
+        rr1 => instrd(19 downto 15), 
+        rr2 => instrd(24 downto 20),
+        wr => s_regdestw,
+        wd => s_resultw,
+        rd1 => s_rd1_regd,
+        rd2 => s_wdd 
+    );
+
+    ------------------------------------------
+    -----------------alu logic----------------
+    ------------------------------------------
+    aluinput2mux: mux2
+    generic map(
+        width => 32
+    )
+    port map(
+        d0 => s_bypassbe,
+        d1 => s_immexte,
+        s  => s_alusrce,
+        y  => s_aluinput2
+    );
+
+    mainalu: alu
+    port map(
+        a => s_bypassae,
+        b => s_aluinput2,
+        alucontrol => s_alucontrole,
+        alures => s_alurese,
+        zero => zero
+    );
+
+    resultmux: mux2
+    generic map(
+        width => 32
+    )
+    port map(
+        d0 => s_aluresw,
+        d1 => s_readdataw,
+        s  => memtoregw,
+        y  => s_resultw 
+    );
+
+    ------------------------------------------
+    -----------------mem logic----------------
+    ------------------------------------------
+    imem: instrmem
+    port map(
+        a   => s_pcf,
+        rd  => s_instrf
+    );
+
+    dmem: datamem
+    port map(
+        clk => clk,
+        we => s_memwritem,
+        a => s_aluresm,
+        wd => s_wdm,
+        rd => s_readdatam
+    );
+
+    ------------------------------------------
+    ----------------stage logic---------------
+    ------------------------------------------
+    not_stalld <= stalld;
+
+    ifidreg: ifid
+    port map(
+        clk => clk,
+        rst => rst,
+        instrf => s_instrf,
+        instrd => instrd,
+        pcf => s_pcf,
+        pcd => s_pcd,
+        pcplus4f => s_pcplus4f,
+        pcplus4d => s_pcplus4d,
+        stalld => not_stalld,
+        flushd => flushd
+    );
+
+    idexreg: idex
+    port map(
+        clk => clk,
+        rd1d => s_rd1_regd,
+        rd1e => s_rd1_rege,
+        rd2d => s_wdd,
+        rd2e => s_wde,
+        rs1d => instrd(19 downto 15),
+        rs1e => rs1e,
+        rs2d => instrd(24 downto 20),
+        rs2e => rs2e,
+        rdd => instrd(11 downto 7),
+        rde => s_regdeste,
+        immextd => s_immextd,
+        immexte => s_immexte,
+        pcd => s_pcd,
+        pce => s_pce,
+        pcplus4d => s_pcplus4d,
+        pcplus4e => s_pcplus4e,
+        flushe => flushe,
+        memwrited => memwrited,
+        memwritee => s_memwritee,
+        regwrited => regwrited,
+        regwritee => s_regwritee,
+        alucontrold => alucontrold,
+        alucontrole => s_alucontrole,
+        alusrcd => alusrcd,
+        alusrce => s_alusrce,
+        memtoregd => memtoregd,
+        memtorege => s_memtorege
+    );
+
+    exmereg: exme
+    port map(
+        clk => clk,
+        alurese => s_alurese,
+        aluresm => s_aluresm,
+        wde => s_bypassbe,
+        wdm => s_wdm,
+        rde => s_regdeste,
+        rdm => s_regdestm,
+        pcplus4e => s_pcplus4e,
+        pcplus4m => s_pcplus4m,
+        memwritee => s_memwritee,
+        memwritem => s_memwritem,
+        memtorege => s_memtorege,
+        memtoregm => s_memtoregm,
+        regwritee => s_regwritee,
+        regwritem => s_regwritem
+    );
+
+    mewbreg: mewb
+    port map(
+        clk => clk,
+        aluresm => s_aluresm,
+        aluresw => s_aluresw,
+        readdm => s_readdatam,
+        readdw => s_readdataw,
+        rdm => s_regdestm,
+        rdw => s_regdestw,
+        pcplus4m => s_pcplus4m,
+        pcplus4w => s_pcplus4w,
+        regwritem => s_regwritem,
+        regwritew => s_regwritew,
+        memtoregm => s_memtoregm,
+        memtoregw => memtoregw
+    );
+
+    ------------------------------------------
+    -------------forwarding logic-------------
+    ------------------------------------------
+    srcaemux: mux3
+    generic map(
+        width => 32
+    )
+    port map(
+        d0 => s_rd1_rege,
+        d1 => s_resultw,
+        d2 => s_aluresm,
+        s  => forwardae,
+        y  => s_bypassae
+    );
+
+    srcbemux: mux3
+    generic map(
+        width => 32
+    )
+    port map(
+        d0 => s_wde,
+        d1 => s_resultw,
+        d2 => s_aluresm,
+        s  => forwardbe,
+        y  => s_bypassbe
+    );
+
+end architecture struct;

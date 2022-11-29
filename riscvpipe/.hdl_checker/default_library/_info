@@ -1,0 +1,625 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/nic/202203-poli/oac/atv4a/riscvpipe
+Econtrolunit
+Z1 w1669692408
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 2001
+R0
+Z4 8/home/nic/202203-poli/oac/atv4a/riscvpipe/controlunit.vhd
+Z5 F/home/nic/202203-poli/oac/atv4a/riscvpipe/controlunit.vhd
+l0
+L4 1
+VA2i9lMI?VXQHJ7S3VoGP:1
+!s100 [L@zm4RKFzk<C@V2[]U4O2
+Z6 OV;C;2020.1;71
+32
+Z7 !s110 1669692409
+!i10b 1
+Z8 !s108 1669692409.000000
+Z9 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe/controlunit.vhd|
+Z10 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe/controlunit.vhd|
+!i113 1
+Z11 o-quiet -work /home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/default_library -check_synthesis -lint -rangecheck -pedanticerrors -explicit
+Z12 tExplicit 1 CvgOpt 0
+Astruct
+R2
+R3
+DEx4 work 11 controlunit 0 22 A2i9lMI?VXQHJ7S3VoGP:1
+!i122 2001
+l52
+L24 53
+VDQ;EGL0jSaiGzaccMSJQ13
+!s100 Y>58mE;UTS;LTc`m:hhZn3
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Edatapath
+Z13 w1669699126
+R2
+R3
+!i122 2734
+Z14 d/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus
+Z15 8/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/datapath.vhd
+Z16 F/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/datapath.vhd
+l0
+L5 1
+V@CdlkILYg;>?aIQ[@o<G<1
+!s100 5RR`Oa=gWR4DHnMNi^OVz1
+R6
+32
+Z17 !s110 1669699356
+!i10b 1
+Z18 !s108 1669699356.000000
+Z19 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/datapath.vhd|
+Z20 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/datapath.vhd|
+!i113 1
+Z21 o-quiet -work /home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/default_library -check_synthesis -lint -rangecheck -pedanticerrors -explicit
+R12
+Astruct
+R2
+R3
+DEx4 work 8 datapath 0 22 @CdlkILYg;>?aIQ[@o<G<1
+!i122 2734
+l291
+L40 484
+VC8D?_meX`67Hi>b1^[R?N1
+!s100 @@N7Yl7fUoGckF?cl@3jI1
+R6
+32
+R17
+!i10b 1
+R18
+R19
+R20
+!i113 1
+R21
+R12
+Eexme
+Z22 w1669699532
+Z23 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+R2
+R3
+!i122 2752
+R14
+Z24 8/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/exme.vhd
+Z25 F/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/exme.vhd
+l0
+L5 1
+VHCgQk;7mX^XiHnb<MEYR10
+!s100 iE]KHk@[20i:ageHafllB1
+R6
+32
+Z26 !s110 1669699533
+!i10b 1
+Z27 !s108 1669699533.000000
+Z28 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/exme.vhd|
+!s107 /home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/exme.vhd|
+!i113 1
+R21
+R12
+Aasynchronous
+R23
+R2
+R3
+Z29 DEx4 work 4 exme 0 22 HCgQk;7mX^XiHnb<MEYR10
+!i122 2752
+l37
+Z30 L35 18
+Z31 VZFbi=7N1FDTncQFSegn]f1
+Z32 !s100 ZZkiZ<3nF;YZNkCUj[:hC2
+R6
+32
+R26
+!i10b 1
+R27
+R28
+Z33 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/exme.vhd|
+!i113 1
+R21
+R12
+Eflopr
+Z34 w1669694336
+R2
+R3
+!i122 2367
+R0
+Z35 8/home/nic/202203-poli/oac/atv4a/riscvpipe/flopr.vhd
+Z36 F/home/nic/202203-poli/oac/atv4a/riscvpipe/flopr.vhd
+l0
+L4 1
+VX97NPGNUV2?VS^dNIjg:D2
+!s100 ]L=<BoT5Kmm@kC7k9>fOR2
+R6
+32
+Z37 !s110 1669694336
+!i10b 1
+Z38 !s108 1669694336.000000
+Z39 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe/flopr.vhd|
+Z40 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe/flopr.vhd|
+!i113 1
+R11
+R12
+Aasynchronous
+R2
+R3
+DEx4 work 5 flopr 0 22 X97NPGNUV2?VS^dNIjg:D2
+!i122 2367
+l18
+L16 14
+V_FP9jL>T;CQ]aD1z?TDZ^3
+!s100 Nb@Y9foSEMeo>mm]E7NdF2
+R6
+32
+R37
+!i10b 1
+R38
+R39
+R40
+!i113 1
+R11
+R12
+Ehazard_unit
+Z41 w1669698119
+R23
+R2
+R3
+!i122 2732
+R14
+Z42 8/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/hazardunit.vhd
+Z43 F/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/hazardunit.vhd
+l0
+L6 1
+V<?IgHiW8A>FVozOR[fA=V1
+!s100 L]ge9c?Q0@BQo4CQ]J]Cf0
+R6
+32
+Z44 !s110 1669699183
+!i10b 1
+Z45 !s108 1669699183.000000
+Z46 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/hazardunit.vhd|
+Z47 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/hazardunit.vhd|
+!i113 1
+R21
+R12
+Astruct
+R23
+R2
+R3
+DEx4 work 11 hazard_unit 0 22 <?IgHiW8A>FVozOR[fA=V1
+!i122 2732
+l40
+Z48 L36 48
+VH_H9@Fd<SP_KTR0h0kF343
+!s100 nzLU`EU:697eJ:;0LzgVQ0
+R6
+32
+R44
+!i10b 1
+R45
+R46
+R47
+!i113 1
+R21
+R12
+Artl
+R23
+R2
+R3
+DEx4 work 11 hazard_unit 0 22 li8]6E>R[n;FZ@P9oQ>Zo0
+!i122 1870
+l40
+R48
+VWKnK58bc9ZiAm]G0]LD@G0
+!s100 PchA>3bV]7TkZdL>ZanFH2
+R6
+32
+!s110 1669692028
+!i10b 1
+!s108 1669692028.000000
+!s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe/hazardunit.vhd|
+!s107 /home/nic/202203-poli/oac/atv4a/riscvpipe/hazardunit.vhd|
+!i113 1
+R11
+R12
+w1669692042
+R0
+F/home/nic/202203-poli/oac/atv4a/riscvpipe/hazardunit.vhd
+8/home/nic/202203-poli/oac/atv4a/riscvpipe/hazardunit.vhd
+Ehazardunit
+Z49 w1669699312
+R23
+R2
+R3
+!i122 2733
+R14
+R42
+R43
+l0
+L5 1
+V?C]MOTYKSF6:T2oXAoih[2
+!s100 61nIMk?cMNOdA9:BIVSij2
+R6
+32
+Z50 !s110 1669699343
+!i10b 1
+Z51 !s108 1669699343.000000
+R46
+R47
+!i113 1
+R21
+R12
+Astruct
+R23
+R2
+R3
+DEx4 work 10 hazardunit 0 22 ?C]MOTYKSF6:T2oXAoih[2
+!i122 2733
+l39
+L35 48
+V>i>aLA>zkdbz5<Ak[n;D;2
+!s100 3dX_3`93BOG=QnhG1W;ki3
+R6
+32
+R50
+!i10b 1
+R51
+R46
+R47
+!i113 1
+R21
+R12
+Eidex
+Z52 w1669699455
+R23
+R2
+R3
+!i122 2742
+R14
+Z53 8/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/idex.vhd
+Z54 F/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/idex.vhd
+l0
+L5 1
+VgYB]hR9[PZ:;m]o3QJh<60
+!s100 =dPc3a=Y4]O[ZSB@g7dL<1
+R6
+32
+Z55 !s110 1669699455
+!i10b 1
+Z56 !s108 1669699455.000000
+Z57 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/idex.vhd|
+Z58 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/idex.vhd|
+!i113 1
+R21
+R12
+Aasynchronous
+R23
+R2
+R3
+DEx4 work 4 idex 0 22 gYB]hR9[PZ:;m]o3QJh<60
+!i122 2742
+l55
+L53 47
+VOhCMKoUI`c_WaCYiR>c7]2
+!s100 o[DU]=aUdkcD:;JT1W;821
+R6
+32
+R55
+!i10b 1
+R56
+R57
+R58
+!i113 1
+R21
+R12
+Eifid
+R41
+R23
+R2
+R3
+!i122 2735
+R14
+Z59 8/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/ifid.vhd
+Z60 F/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/ifid.vhd
+l0
+L5 1
+V61FjWY[JYV<U^IWGXj6T13
+!s100 kWZ9TI?6BZ<eKJM6`z<C32
+R6
+32
+Z61 !s110 1669699362
+!i10b 1
+Z62 !s108 1669699362.000000
+Z63 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/ifid.vhd|
+Z64 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/ifid.vhd|
+!i113 1
+R21
+R12
+Aasynchronous
+R23
+R2
+R3
+DEx4 work 4 ifid 0 22 61FjWY[JYV<U^IWGXj6T13
+!i122 2735
+l31
+L27 29
+VAWb`Q9_NK6M`?`b1_DRWd3
+!s100 Z^F[VDeLDEQfOMJ^cnO9z1
+R6
+32
+R61
+!i10b 1
+R62
+R63
+R64
+!i113 1
+R21
+R12
+Emewb
+Z65 w1669690684
+R23
+R2
+R3
+!i122 1631
+R0
+Z66 8/home/nic/202203-poli/oac/atv4a/riscvpipe/mewb.vhd
+Z67 F/home/nic/202203-poli/oac/atv4a/riscvpipe/mewb.vhd
+l0
+L5 1
+VJG9BJ9Gkz7_TFOz7LAH:P1
+!s100 80OK5Q5<]S3a7z:?_P6BV1
+R6
+32
+Z68 !s110 1669690685
+!i10b 1
+Z69 !s108 1669690685.000000
+Z70 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe/mewb.vhd|
+Z71 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe/mewb.vhd|
+!i113 1
+R11
+R12
+Aasynchronous
+R23
+R2
+R3
+DEx4 work 4 mewb 0 22 JG9BJ9Gkz7_TFOz7LAH:P1
+!i122 1631
+l35
+L33 17
+VMd75b`E1oQ`>c>zMioEhW1
+!s100 ?YNS85P:XX`W5NI;BFWmh3
+R6
+32
+R68
+!i10b 1
+R69
+R70
+R71
+!i113 1
+R11
+R12
+Emux2
+Z72 w1669678490
+R2
+R3
+!i122 2658
+R0
+Z73 8/home/nic/202203-poli/oac/atv4a/riscvpipe/mux2.vhd
+Z74 F/home/nic/202203-poli/oac/atv4a/riscvpipe/mux2.vhd
+l0
+L4 1
+VP[XF6UNSVGH@A2_6OIYle3
+!s100 SY277E1z<QiV8@83Pl`zY2
+R6
+32
+Z75 !s110 1669695816
+!i10b 1
+Z76 !s108 1669695816.000000
+Z77 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe/mux2.vhd|
+Z78 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe/mux2.vhd|
+!i113 1
+R11
+R12
+Abehavioural
+R2
+R3
+DEx4 work 4 mux2 0 22 P[XF6UNSVGH@A2_6OIYle3
+!i122 2658
+l17
+L15 8
+VPjlGTS@MLaPN?HmhY<^in2
+!s100 j`N^Ta7FZSiDLb;jbheIM2
+R6
+32
+R75
+!i10b 1
+R76
+R77
+R78
+!i113 1
+R11
+R12
+Eregfile
+R72
+R23
+R2
+R3
+!i122 281
+R0
+Z79 8/home/nic/202203-poli/oac/atv4a/riscvpipe/regfile.vhd
+Z80 F/home/nic/202203-poli/oac/atv4a/riscvpipe/regfile.vhd
+l0
+L5 1
+VO2gKXOW1h?R<MJJ@J2Q0i3
+!s100 `:dV`<@3oIUR^i14N5BXd2
+R6
+32
+Z81 !s110 1669682259
+!i10b 1
+Z82 !s108 1669682259.000000
+Z83 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe/regfile.vhd|
+Z84 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe/regfile.vhd|
+!i113 1
+R11
+R12
+Abehavioural
+R23
+R2
+R3
+DEx4 work 7 regfile 0 22 O2gKXOW1h?R<MJJ@J2Q0i3
+!i122 281
+l22
+L16 34
+VLL3c7oLBY>P@Qlhdj2Whm2
+!s100 ;KU:had0i0Dn^iUQbE=_=3
+R6
+32
+R81
+!i10b 1
+R82
+R83
+R84
+!i113 1
+R11
+R12
+Eriscvpipe
+R41
+R2
+R3
+!i122 2731
+R14
+Z85 8/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/riscvpipe.vhd
+Z86 F/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/riscvpipe.vhd
+l0
+L4 1
+VZnAI7i68hERLIR@J>;c_k1
+!s100 aBh3N@]nn1z?z0z_mZz793
+R6
+32
+Z87 !s110 1669699151
+!i10b 1
+Z88 !s108 1669699151.000000
+Z89 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/riscvpipe.vhd|
+Z90 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe_quartus/riscvpipe.vhd|
+!i113 1
+R21
+R12
+Astruct
+R2
+R3
+DEx4 work 9 riscvpipe 0 22 ZnAI7i68hERLIR@J>;c_k1
+!i122 2731
+l106
+L10 164
+VXXB_CFjJbS3A?nh?Y8N3n3
+!s100 Sl5[laZ8:zETAon];1K0W0
+R6
+32
+R87
+!i10b 1
+R88
+R89
+R90
+!i113 1
+R21
+R12
+Eriscvsingle
+R72
+R2
+R3
+!i122 1877
+R0
+Z91 8/home/nic/202203-poli/oac/atv4a/riscvpipe/riscvpipe.vhd
+Z92 F/home/nic/202203-poli/oac/atv4a/riscvpipe/riscvpipe.vhd
+l0
+L4 1
+V;]VV8[JOj4aJak4C;2can0
+!s100 Kez?>?RDfh]QaC;fjMRB?0
+R6
+32
+Z93 !s110 1669692055
+!i10b 1
+Z94 !s108 1669692055.000000
+Z95 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe/riscvpipe.vhd|
+Z96 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe/riscvpipe.vhd|
+!i113 1
+R11
+R12
+Astruct
+R2
+R3
+DEx4 work 11 riscvsingle 0 22 ;]VV8[JOj4aJak4C;2can0
+!i122 1877
+l61
+L15 82
+Vc]WfZMd6b:P=S[Z66S^0N3
+!s100 jbBmUW_=QW;]1j1UdS5>i0
+R6
+32
+R93
+!i10b 1
+R94
+R95
+R96
+!i113 1
+R11
+R12
+Etop
+R72
+R23
+R2
+R3
+!i122 2129
+R0
+Z97 8/home/nic/202203-poli/oac/atv4a/riscvpipe/top.vhd
+Z98 F/home/nic/202203-poli/oac/atv4a/riscvpipe/top.vhd
+l0
+L5 1
+V38hWViYCz[1dF=n3fDm?D2
+!s100 jUBCo7Ih7o]MYV8[P@?z@2
+R6
+32
+Z99 !s110 1669693083
+!i10b 1
+Z100 !s108 1669693083.000000
+Z101 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/default_library|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe/top.vhd|
+Z102 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe/top.vhd|
+!i113 1
+R11
+R12
+Atest
+R23
+R2
+R3
+DEx4 work 3 top 0 22 38hWViYCz[1dF=n3fDm?D2
+!i122 2129
+l45
+L13 67
+VJVM[C]<@hH0Y;QMkkRMH23
+!s100 Nek`5d?<^gdMOe6[U3F5R2
+R6
+32
+R99
+!i10b 1
+R100
+R101
+R102
+!i113 1
+R11
+R12

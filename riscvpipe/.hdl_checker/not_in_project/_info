@@ -1,0 +1,113 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/nic/202203-poli/oac/atv4a/riscvpipe
+Ehazardunit
+w1669688039
+!i122 2
+R0
+8/home/nic/202203-poli/oac/atv4a/riscvpipe/hazardunit.vhd
+F/home/nic/202203-poli/oac/atv4a/riscvpipe/hazardunit.vhd
+l0
+L1 1
+V:LzN4CaE`oFVnRANTBWRg3
+!s100 AbOJ[;:IPNYe1oeSe<;hS2
+Z1 OV;C;2020.1;71
+32
+!s110 1669688040
+!i10b 1
+!s108 1669688040.000000
+!s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/not_in_project|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe/hazardunit.vhd|
+!s107 /home/nic/202203-poli/oac/atv4a/riscvpipe/hazardunit.vhd|
+!i113 1
+Z2 o-quiet -work /home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/not_in_project -check_synthesis -lint -rangecheck -pedanticerrors -explicit
+Z3 tExplicit 1 CvgOpt 0
+Emux2
+Z4 w1669695885
+Z5 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z6 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 22
+R0
+Z7 8/home/nic/202203-poli/oac/atv4a/riscvpipe/mux3.vhd
+Z8 F/home/nic/202203-poli/oac/atv4a/riscvpipe/mux3.vhd
+l0
+L4 1
+VY7Fg<6XY;laQA`g_lDFba1
+!s100 BR@N[?m@5Go=S`aR73C4`2
+R1
+32
+Z9 !s110 1669695886
+!i10b 1
+Z10 !s108 1669695886.000000
+Z11 !s90 -modelsimini|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/modelsim.ini|-quiet|-work|/home/nic/202203-poli/oac/atv4a/riscvpipe/.hdl_checker/not_in_project|-check_synthesis|-lint|-rangecheck|-pedanticerrors|-explicit|/home/nic/202203-poli/oac/atv4a/riscvpipe/mux3.vhd|
+Z12 !s107 /home/nic/202203-poli/oac/atv4a/riscvpipe/mux3.vhd|
+!i113 1
+R2
+R3
+Abehavioural
+R5
+R6
+DEx4 work 4 mux2 0 22 Y7Fg<6XY;laQA`g_lDFba1
+!i122 22
+l17
+Z13 L15 9
+VzU@A=JJzoMB=Y52J]@Bk<1
+!s100 NJh1K>F[^iglY8eb2c@]:3
+R1
+32
+R9
+!i10b 1
+R10
+R11
+R12
+!i113 1
+R2
+R3
+Emux3
+Z14 w1669695898
+R5
+R6
+!i122 24
+R0
+R7
+R8
+l0
+L4 1
+V@QAld60ASgYO73C7iQ36M2
+!s100 AzaF_VGFio44ES`k0a5Fn0
+R1
+32
+Z15 !s110 1669695898
+!i10b 1
+Z16 !s108 1669695898.000000
+R11
+R12
+!i113 1
+R2
+R3
+Abehavioural
+R5
+R6
+Z17 DEx4 work 4 mux3 0 22 @QAld60ASgYO73C7iQ36M2
+!i122 24
+l17
+R13
+Z18 VGV3JVNTjhgWIN2Ko>7kDh0
+Z19 !s100 M_[13ZGJ4ko9oAS@`JUda0
+R1
+32
+R15
+!i10b 1
+R16
+R11
+R12
+!i113 1
+R2
+R3

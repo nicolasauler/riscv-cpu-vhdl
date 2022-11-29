@@ -1,0 +1,83 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+
+entity hazard_unit is
+    port(
+        -- register addresses
+        rs1d:           in std_logic_vector(4 downto 0);
+        rs1e:           in std_logic_vector(4 downto 0);
+        rs2d:           in std_logic_vector(4 downto 0);
+        rs2e:           in std_logic_vector(4 downto 0);
+        rde:            in std_logic_vector(4 downto 0);
+        rdm:            in std_logic_vector(4 downto 0);
+        rdw:            in std_logic_vector(4 downto 0);
+
+        -- control data
+        pcsrc:          in std_logic;
+        memtoregw:      in std_logic;
+        regwritem:      in std_logic;
+        regwritew:      in std_logic;
+
+        -- hazard data
+        stallf:         out std_logic;
+        stalld:         out std_logic;
+
+        flushd:         out std_logic;
+        flushe:         out std_logic;
+
+        -- forwarding mux selector
+        forwardae:      out std_logic_vector(1 downto 0);
+        forwardbe:      out std_logic_vector(1 downto 0)
+    );
+end entity hazard_unit;
+
+architecture struct of hazard_unit is
+
+    signal lwstall:         std_logic;
+
+    begin
+    process(rs1e, rdm, rdw, regwritem, regwritew)
+        -- forwarding
+        begin
+            if((rs1e = rdm) and (regwritem = '1')) and (rs1e /= b"00000") then
+                forwardae <= "10"; -- get from me
+            elsif((rs1e = rdw) and (regwritew = '1')) and (rs1e /= b"00000") then
+                forwardae <= "01"; -- get from wb
+            else
+                forwardae <= "00";
+            end if;
+        end process;
+
+        process(rs2e, rdm, rdw, regwritem, regwritew)begin
+            if((rs2e = rdm) and (regwritem = '1')) and (rs2e /= b"00000") then
+                forwardbe <= "10";
+            elsif((rs2e = rdw) and (regwritew = '1')) and (rs2e /= b"00000") then
+                forwardbe <= "01";
+            else
+                forwardbe <= "00";
+            end if;
+        end process;
+
+        -- stalls
+        process(rs1d, rs2d, rde, memtoregw)
+        begin
+            if((rs1d = rde) or (rs2d = rde)) and (memtoregw = '1') then
+                lwStall <= '1';
+            else
+                lwStall <= '0';
+            end if;
+        end process;
+
+        stallf <= lwStall;
+        stalld <= lwStall;
+
+        -- flushing
+        process(pcsrc, lwStall)
+        begin
+            flushd <= pcsrc;
+            flushe <= lwStall or pcsrc;
+        end process;
+
+end architecture struct;

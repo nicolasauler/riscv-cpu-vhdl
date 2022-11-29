@@ -1,0 +1,46 @@
+v 4
+file . "top.vhd" "55bbce245118adc33d252ee4abe1c8a00a649d2b" "20221128194650.039":
+  entity top at 1( 0) + 0 on 49;
+  architecture test of top at 13( 248) + 0 on 50;
+file . "riscvsingle.vhd" "bd04e88090ce78fb695cb86ca8e7c7195398fdfe" "20221128194649.999":
+  entity riscvsingle at 1( 0) + 0 on 45;
+  architecture struct of riscvsingle at 15( 421) + 0 on 46;
+file . "mux2.vhd" "fae8c2561d718e4c4a269d7edc6a26b9a751e9ef" "20221128194649.961":
+  entity mux2 at 1( 0) + 0 on 41;
+  architecture behavioural of mux2 at 15( 321) + 0 on 42;
+file . "instrmem.vhd" "07d1cbe2ae02ee74f2197457e8b040de438e5ee2" "20221128194649.917":
+  entity instrmem at 1( 0) + 0 on 37;
+  architecture behavioural of instrmem at 14( 281) + 0 on 38;
+file . "flopr.vhd" "c928fa07e2d88504c7091c2fa51c12a19b7c5bad" "20221128194649.880":
+  entity flopr at 1( 0) + 0 on 33;
+  architecture asynchronous of flopr at 16( 372) + 0 on 34;
+file . "controlunit.vhd" "0fa09e4b1c85fd07bc49355c3d57a8492bc66288" "20221128194649.803":
+  entity controlunit at 1( 0) + 0 on 27;
+  architecture struct of controlunit at 24( 894) + 0 on 28;
+file . "alu.vhd" "a8fc7da6091f44e5e8e2f24f9c08a82ff561c759" "20221128194649.754":
+  entity alu at 1( 0) + 0 on 23;
+  architecture synth of alu at 16( 449) + 0 on 24;
+file . "adder.vhd" "8dc86bc10ce83ba48ff0f30ce4d8a5477e3ed9e3" "20221128194649.732":
+  entity adder at 1( 0) + 0 on 21;
+  architecture behavioural of adder at 13( 263) + 0 on 22;
+file . "aludec.vhd" "222a0e51f41c4d88e6d932a102f5cd3554c8dc47" "20221128194649.786":
+  entity aludec at 1( 0) + 0 on 25;
+  architecture behavioural of aludec at 13( 291) + 0 on 26;
+file . "datamem.vhd" "a506f57e51ab2772060ac95c1d8caa7e560ee491" "20221128194649.821":
+  entity datamem at 1( 0) + 0 on 29;
+  architecture behavioural of datamem at 14( 302) + 0 on 30;
+file . "datapath.vhd" "535f5de123442d43ccbfc0925d593a3507dd9439" "20221128194649.840":
+  entity datapath at 1( 0) + 0 on 31;
+  architecture struct of datapath at 24( 737) + 0 on 32;
+file . "immgen.vhd" "aa8de93dd763ba8873bd3640a1a6aebfc6c163c5" "20221128194649.895":
+  entity immgen at 1( 0) + 0 on 35;
+  architecture behavioural of immgen at 12( 386) + 0 on 36;
+file . "maindec.vhd" "67e0b1641b89de2553788e30b4944ceed2d498c1" "20221128194649.942":
+  entity maindec at 1( 0) + 0 on 39;
+  architecture behavioural of maindec at 18( 469) + 0 on 40;
+file . "regfile.vhd" "741551a8f6ae5345af5356ef80e6dcd21404bb6e" "20221128194649.976":
+  entity regfile at 1( 0) + 0 on 43;
+  architecture behavioural of regfile at 16( 530) + 0 on 44;
+file . "testbench.vhd" "a6fd032fdaa53f1df17d51303f04f2a6f3526b49" "20221128194650.020":
+  entity testbench at 1( 0) + 0 on 47;
+  architecture test of testbench at 8( 113) + 0 on 48;

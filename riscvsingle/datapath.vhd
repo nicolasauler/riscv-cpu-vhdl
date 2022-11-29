@@ -1,0 +1,195 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+
+entity datapath is
+    port(
+        clk, rst:   in  std_logic;
+        instr:      in  std_logic_vector(31 downto 0);
+        rd:         in  std_logic_vector(31 downto 0);
+
+        memtoreg:   in  std_logic; -- regsrc
+        alucontrol: in  std_logic_vector(2 downto 0);
+        alusrc:     in  std_logic;
+        pcsrc:      in  std_logic;
+        regwrite:   in  std_logic;
+        immsrc:     in  std_logic_vector(1 downto 0); -- tell type of instr
+
+        pc:         out std_logic_vector(31 downto 0);
+        zero:       out std_logic; -- control pcsrc: do branch or +4
+        alures, wd: out std_logic_vector(31 downto 0)
+    );
+end entity datapath;
+
+architecture struct of datapath is
+
+    component flopr
+        generic(
+            width:                  integer := 32
+        );
+        port(
+            clk, rst:   in          std_logic;
+            d:          in          std_logic_vector(width-1 downto 0);
+            q:          out         std_logic_vector(width-1 downto 0)
+        );
+    end component flopr;
+
+
+    component adder -- 32 bits
+        port(
+            a, b:       in          std_logic_vector(31 downto 0);
+            y:          out         std_logic_vector(31 downto 0)
+        );
+    end component adder;
+
+    component mux2
+        generic(
+            width:                  integer := 8
+        );
+        port(
+            d0, d1:     in          std_logic_vector(width-1 downto 0);
+            s:          in          std_logic;
+            y:          out         std_logic_vector(width-1 downto 0)
+        );
+    end component mux2;
+
+    component regfile
+        port(
+            clk:        in          std_logic;
+            regwrite:   in          std_logic;
+            rr1, rr2:   in          std_logic_vector(4 downto 0); -- read register 1 and 2
+            wr:         in          std_logic_vector(4 downto 0); -- write register
+            wd:         in          std_logic_vector(31 downto 0); -- read data
+            rd1, rd2:   out         std_logic_vector(31 downto 0) -- read data
+        );
+    end component regfile;
+
+    component immgen
+        port(
+            instr:      in          std_logic_vector(31 downto 7); -- parts of instructions with immediate fields
+            immsrc:     in          std_logic_vector(1 downto 0);
+            immext:     out         std_logic_vector(31 downto 0)
+        );
+    end component immgen;
+
+    component alu
+        port(
+            a,b:        in          std_logic_vector(31 downto 0);
+            alucontrol: in          std_logic_vector(2 downto 0);
+            alures:     out         std_logic_vector(31 downto 0);
+            zero:       out         std_logic
+        );
+    end component alu;
+
+    signal s_pcplus4, s_pctarget, s_pcnext:std_logic_vector(31 downto 0);
+    signal s_pc:                    std_logic_vector(31 downto 0);
+    signal s_immext:                std_logic_vector(31 downto 0); -- imediate address from beq
+
+    signal s_result:                std_logic_vector(31 downto 0);
+    signal s_rd1_reg, s_aluinput2:  std_logic_vector(31 downto 0);
+    signal s_wd, s_alures:          std_logic_vector(31 downto 0);
+
+begin
+
+    ------------------------------------------
+    ---------------next PC logic--------------
+    ------------------------------------------
+    pcreg:  flopr
+    generic map(
+        width => 32
+    )
+    port map(
+        clk => clk,
+        rst => rst,
+        d   => s_pcnext,
+        q   => s_pc
+    );
+
+    pcadd4: adder
+    port map(
+        a => s_pc,
+        b => X"00000004",
+        y => s_pcplus4
+    );
+
+    pcaddbranch: adder
+    port map(
+        a => s_pc,
+        b => s_immext,
+        y => s_pctarget
+    );
+
+    pcmux:  mux2
+    generic map(
+        width => 32
+    )
+    port map(
+        d0 => s_pcplus4,
+        d1 => s_pctarget,
+        s  => pcsrc,
+        y  => s_pcnext
+    );
+
+    pc <= s_pc;
+
+    ------------------------------------------
+    ---------------regfile logic--------------
+    ------------------------------------------
+    imm: immgen
+    port map(
+        instr => instr(31 downto 7),
+        immsrc => immsrc,
+        immext => s_immext
+    );
+
+    rf: regfile
+    port map(
+        clk => clk,
+        regwrite => regwrite,
+        rr1 => instr(19 downto 15), 
+        rr2 => instr(24 downto 20),
+        wr => instr(11 downto 7),
+        wd => s_result,
+        rd1 => s_rd1_reg,
+        rd2 => s_wd 
+    );
+
+    ------------------------------------------
+    -----------------alu logic----------------
+    ------------------------------------------
+    aluinput2mux: mux2
+    generic map(
+        width => 32
+    )
+    port map(
+        d0 => s_wd,
+        d1 => s_immext,
+        s  => alusrc,
+        y  => s_aluinput2
+    );
+
+    mainalu: alu
+    port map(
+        a => s_rd1_reg,
+        b => s_aluinput2,
+        alucontrol => alucontrol,
+        alures => s_alures,
+        zero => zero
+    );
+
+    resultmux: mux2
+    generic map(
+        width => 32
+    )
+    port map(
+        d0 => s_alures,
+        d1 => rd,
+        s  => memtoreg,
+        y  => s_result 
+    );
+
+
+    alures <= s_alures;
+    wd <= s_wd;
+
+end architecture struct;
